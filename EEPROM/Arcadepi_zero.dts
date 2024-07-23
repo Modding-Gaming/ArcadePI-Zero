@@ -1,0 +1,87 @@
+/dts-v1/;
+/plugin/;
+/ {
+    compatible = "brcm,bcm2835", "brcm,bcm2708", "brcm,bcm2709";
+    #address-cells = <1>;
+    #size-cells = <0>;
+
+    fragment@0 {
+        reg = <0>;
+        target = <&gpio>;
+        __overlay__ {
+            pins {
+                brcm,pins = <4 14 15 16 17 18 19 20 26 31 29>;
+                brcm,function = <0>; // GPIO function
+                brcm,pull = <2>; // Pull-up/pull-down resistors
+            };
+        };
+    };
+
+    fragment@1 {
+        reg = <1>;
+        target-path = "/soc";
+        __overlay__ {
+            buttons {
+                compatible = "gpio-keys";
+                #address-cells = <1>;
+                #size-cells = <0>;
+
+                button@4 { // Player 1 Left
+                    reg = <4>;
+                    gpios = <&gpio 4 1>;
+                    linux,code = <105>; // KEY_LEFT
+                };
+                button@19 { // Player 1 Right
+                    reg = <19>;
+                    gpios = <&gpio 19 1>;
+                    linux,code = <106>; // KEY_RIGHT
+                };
+                button@16 { // Player 1 Up
+                    reg = <16>;
+                    gpios = <&gpio 16 1>;
+                    linux,code = <103>; // KEY_UP
+                };
+                button@26 { // Player 1 Down
+                    reg = <26>;
+                    gpios = <&gpio 26 1>;
+                    linux,code = <108>; // KEY_DOWN
+                };
+                button@14 { // Player 1 A
+                    reg = <14>;
+                    gpios = <&gpio 14 1>;
+                    linux,code = <45>; // KEY_A
+                };
+                button@15 { // Player 1 B
+                    reg = <15>;
+                    gpios = <&gpio 15 1>;
+                    linux,code = <44>; // KEY_B
+                };
+                button@20 { // Player 1 X
+                    reg = <20>;
+                    gpios = <&gpio 20 1>;
+                    linux,code = <31>; // KEY_X
+                };
+                button@18 { // Player 1 Y
+                    reg = <18>;
+                    gpios = <&gpio 18 1>;
+                    linux,code = <30>; // KEY_Y
+                };
+                button@17 { // Player 1 HOTKEY
+                    reg = <17>;
+                    gpios = <&gpio 17 1>;
+                    linux,code = <58>; // KEY_HOTKEY
+                };
+                button@31 { // Player 1 START
+                    reg = <31>;
+                    gpios = <&gpio 31 1>;
+                    linux,code = <28>; // KEY_START
+                };
+                button@29 { // Player 1 SELECT
+                    reg = <29>;
+                    gpios = <&gpio 29 1>;
+                    linux,code = <54>; // KEY_SELECT
+                };
+            };
+        };
+    };
+};
